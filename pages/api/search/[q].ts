@@ -3,7 +3,7 @@ import { db } from '@/database';
 import { Product } from '@/models';
 import { IProduct } from '@/interfaces';
 
-type Data = { message: string } | { products: IProduct[] };
+type Data = { message: string } | IProduct[];
 
 export default function handler(
     req: NextApiRequest,
@@ -40,5 +40,5 @@ const searchProducts = async (
 
     await db.disconnect();
 
-    return res.status(200).json({ products });
+    return res.status(200).json(products);
 };

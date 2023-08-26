@@ -3,7 +3,7 @@ import { IProduct } from '@/interfaces';
 import { Product } from '@/models';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
-type Data = { message: string } | { products: IProduct[] };
+type Data = { message: string } | IProduct[];
 
 export default function handler(
     req: NextApiRequest,
@@ -33,7 +33,7 @@ const getProducts = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
             .lean();
         db.disconnect();
 
-        res.status(200).json({ products });
+        res.status(200).json(products);
     } catch (error) {
         console.log('Something wrong happened');
         res.status(500).json({
